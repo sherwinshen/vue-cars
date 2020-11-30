@@ -1,6 +1,8 @@
 <template>
   <div class="index">
-    This is Home.
+    <div class="amap-wrapper">
+      <el-amap class="amap-box" :vid="'amap-vue'"></el-amap>
+    </div>
   </div>
 </template>
 
@@ -10,7 +12,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .index {
+  .amap-wrapper {
+    width: 100vw;
+    height: 100vh;
+  }
 }
 </style>
