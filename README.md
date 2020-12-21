@@ -76,7 +76,71 @@ export default {
 </style>
 ```
 
+## 第13课时
 
+### 13.1 兼容高德地图SDK
 
- 
+在定制化程度较高的项目中，开发者可能只想通过 vue-amap 引入高德地图，而部分实例化的操作直接基于高德地图的 sdk 完成。这个时候就需要 `lazyAMapApiLoaderInstance`。
 
+```vue
+<template>
+  <div class="amap-wrapper">
+    <el-amap :vid="'amapVue'" :center="center" :zoom="zoom"></el-amap>
+  </div>
+</template>
+
+<script>
+import { lazyAMapApiLoaderInstance } from "vue-amap";
+
+export default {
+  name: "Index",
+  data() {
+    return {
+      map: null,
+      zoom: 13,
+      center: [116.404765, 39.918052]
+    };
+  },
+  mounted() {
+    lazyAMapApiLoaderInstance.load().then(() => {
+      // eslint-disable-next-line no-undef
+      this.map = new AMap.Map("amapVue", {
+        center: this.center,
+        zoom: this.zoom
+      });
+    });
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.amap-wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+```
+
+## 第14课时
+
+### 14.1 scss清除浮动
+
+```scss
+@mixin clearfix {
+  &:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+  }
+  *height: 1%; // 貌似兼容IE7的意思？
+}
+```
+
+```scss
+.wrap {
+  @include clearfix; // 使用方法
+}
+```

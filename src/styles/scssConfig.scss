@@ -1,0 +1,32 @@
+/* 颜色样式 */
+$color-main: #34393f;
+
+/* 清除浮动 */
+%clearfix {
+  &:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+  }
+
+  *height: 1%;
+}
+
+@mixin webkit-prefix($type, $value) {
+  -webkit-#{$type}: $value;
+  -moz-#{$type}: $value;
+  -ms-#{$type}: $value;
+  -o-#{$type}: $value;
+  #{$type}: $value;
+}
+
+@mixin webkit-suffix($type, $value) {
+  #{$type}: -webkit-#{$value};
+  #{$type}: -moz-#{$value};
+  #{$type}: -ms-#{$value};
+  #{$type}: -o-#{$value};
+  #{$type}: $value;
+}
