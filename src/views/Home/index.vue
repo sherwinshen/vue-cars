@@ -25,7 +25,7 @@ export default {
     show() {
       return this.$route.name !== "Home";
     }
-  },
+  }
 };
 </script>
 

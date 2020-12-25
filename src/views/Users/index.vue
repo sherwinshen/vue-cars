@@ -12,6 +12,5 @@ export default {
 
 <style scoped lang="scss">
 .user-wrap {
-
 }
 </style>

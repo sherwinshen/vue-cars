@@ -144,3 +144,48 @@ export default {
   @include clearfix; // 使用方法
 }
 ```
+
+### 14.2 SCSS生成通用CSS
+
+<img src="/Users/Sherwin/Desktop/vue-cars/noteImg/14.2.png" style="zoom:50%;" />
+
+如上图所示的需求，会显示一格电至十格电，这个时候就可以设置一些的通用的css样式，例如active-1代表前1个格子为蓝色，active-4代表前4个格子为蓝色，这时候我们就需要利用SCSS利用代码的思维来生成10个active-i，而不是我们自己手动重复写10个css样式。
+
+**css选择器小知识**：
+
+> 尤其要注意:nth-child(-n+length)代表前length个元素！！！
+
+```
+:nth-child() 代表选择某个的一个或多个特定的子元素
+1、:nth-child(number);/*参数是具体数字*/ 
+2、:nth-child(n);/*参数是n,n从0开始计算*/ 
+3、:nth-child(n*length)/*n的倍数选择，n从0开始算*/ 
+4、:nth-child(n+length);/*选择大于length后面的元素*/ 
+5、:nth-child(-n+length)/*选择小于length前面的元素*/ 
+6、:nth-child(n*length+1);/*表示隔几选一*/ 
+```
+
+需求实现代码：
+
+```scss
+@for $i from 1 through 10 {
+  .active-li-#{$i} {
+    li:nth-child(-n + #{$i}) {
+      // ...
+    }      
+  }
+}
+```
+
+## 第15课时
+
+### 15.1 swiper滑动功能
+
+[Swiper](https://swiperjs.com/vue/)是纯javascript打造的滑动特效插件，swiper6.0目前仅支持vue3.0，Vue2.0可以结合[vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper)。
+
+```
+npm install swiper vue-awesome-swiper --save
+```
+
+具体使用详见官方文档API
+
