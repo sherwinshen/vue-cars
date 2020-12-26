@@ -16,6 +16,9 @@ $color-blue: #00a3ff;
   *height: 1%;
 }
 
+.text-align-center {
+  text-align: center;
+}
 @mixin webkit-prefix($type, $value) {
   -webkit-#{$type}: $value;
   -moz-#{$type}: $value;

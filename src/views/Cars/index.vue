@@ -3,19 +3,19 @@
     <div class="swiper-wrap">
       <swiper ref="mySwiper" :options="swiperOptions">
         <swiper-slide>
-          <Car-item></Car-item>
+          <Car-item :isActive="true"></Car-item>
         </swiper-slide>
         <swiper-slide>
           <Car-item></Car-item>
         </swiper-slide>
         <swiper-slide>
-          <Car-item></Car-item>
+          <Car-item :isActive="true"></Car-item>
         </swiper-slide>
         <swiper-slide>
           <Car-item></Car-item>
         </swiper-slide>
         <swiper-slide>
-          <Car-item></Car-item>
+          <Car-item :isActive="true"></Car-item>
         </swiper-slide>
         <swiper-slide>
           <Car-item></Car-item>
@@ -89,6 +89,10 @@ export default {
   .swiper-wrap {
     position: relative;
     padding: 0 80px;
+
+    .swiper-container {
+      overflow: initial;
+    }
 
     .swiper-button-prev,
     .swiper-button-next {
