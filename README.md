@@ -193,3 +193,23 @@ npm install swiper vue-awesome-swiper --save
 
 略。
 
+## 第17课时
+
+### 17.1 弹窗鼠标点击事件
+
+需求描述：点击user icon则右侧滑动出现，点击其他区域则右侧滑动消失。
+
+<img src="./noteImg/会员中心.jpg" style="zoom:80%;" />
+
+实现方案：在页面挂载一个mouseup监听函数，当右侧栏显示的时候，点击鼠标时判断鼠标点击的位置是否是右侧栏的区域（通过document.getElementById等方法获取），如果不是则更新使右侧滑动消失，反之，则不处理。
+
+```js
+mounted() {
+  document.addEventListener("mouseup", e => {
+    const sider = document.getElementById("sider-wrap");
+    if (sider && sider.contains(e.target)) {
+      this.$router.push({ name: "Home" });
+    }
+  });
+}
+```

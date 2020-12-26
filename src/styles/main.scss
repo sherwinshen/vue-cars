@@ -8,7 +8,6 @@ i[class^="icon"] {
   background-size: cover;
 }
 
-
 .icon-help {
   background-image: url(~@/assets/images/icons/icon-help.png);
 
@@ -39,4 +38,24 @@ i[class^="icon"] {
   &:hover {
     background-image: url(~@/assets/images/icons/icon-user-active.png);
   }
+}
+
+.icon-user-link-1 {
+  background-image: url(~@/assets/images/icons/icon-router-link-001.png);
+}
+
+.icon-user-link-2 {
+  background-image: url(~@/assets/images/icons/icon-router-link-002.png);
+}
+
+.icon-user-link-3 {
+  background-image: url(~@/assets/images/icons/icon-router-link-003.png);
+}
+
+.icon-user-link-4 {
+  background-image: url(~@/assets/images/icons/icon-router-link-004.png);
+}
+
+.icon-user-link-5 {
+  background-image: url(~@/assets/images/icons/icon-router-link-005.png);
 }

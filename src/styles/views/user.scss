@@ -1,0 +1,90 @@
+.user-wrap {
+  padding: 30px;
+
+  .user-info {
+    display: flex;
+    padding: 64px 0 60px 5px;
+  }
+
+  .user-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    border: 6px solid #2f343a;
+  }
+
+  .user-detail {
+    flex: 1;
+    padding-left: 17px;
+  }
+
+  .user-email {
+    color: #909090;
+    line-height: 43px;
+    font-size: 18px;
+  }
+
+  .user-number {
+    display: inline-block;
+    height: 27px;
+    padding: 0 17px;
+    background-color: #10a0f2;
+    border-radius: 100px;
+    line-height: 27px;
+    color: #fff;
+    font-size: 14px;
+  }
+
+  .logout-btn {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    margin: 0 auto;
+    width: 165px;
+    height: 48px;
+    background-color: #2d3339;
+    border-radius: 100px;
+    text-align: center;
+    line-height: 48px;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    @include webkit-prefix(transition, all 0.3s ease 0s);
+
+    &:hover {
+      background-color: #10a0f2;
+    }
+  }
+  .user-select{
+    .icon {
+      width: 30px;
+      height: 30px;
+      margin: 0 16px -10px 32px;
+    }
+    a {
+      display: block;
+      margin: 0 -30px;
+      height: 64px;
+      line-height: 64px;
+      color: rgba(255, 255, 255, 0.4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      font-size: 16px;
+      position: relative;
+
+      &:after {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-top: 3px solid rgba(189, 189, 189, 0.3);
+        border-left: 3px solid rgba(189, 189, 189, 0.3);
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto 20px auto auto;
+        @include webkit-prefix(transform, rotate(135deg))
+      }
+    }
+  }
+}
