@@ -1,0 +1,31 @@
+.icon-help {
+  background-image: url(~@/assets/images/icons/icon-help.png);
+
+  &:hover {
+    background-image: url(~@/assets/images/icons/icon-help-active.png);
+  }
+}
+
+.icon-search {
+  background-image: url(~@/assets/images/icons/icon-search.png);
+
+  &:hover {
+    background-image: url(~@/assets/images/icons/icon-search-active.png);
+  }
+}
+
+.icon-location {
+  background-image: url(~@/assets/images/icons/icon-location.png);
+
+  &:hover {
+    background-image: url(~@/assets/images/icons/icon-location-active.png);
+  }
+}
+
+.icon-user {
+  background-image: url(~@/assets/images/icons/icon-user.png);
+
+  &:hover {
+    background-image: url(~@/assets/images/icons/icon-user-active.png);
+  }
+}

@@ -1,0 +1,306 @@
+.car-overview {
+  width: 400px;
+  height: 220px;
+  margin: 10px auto;
+  padding: 20px 20px 0;
+  background-color: #fff;
+  box-sizing: border-box;
+  border-radius: 24px;
+  @include webkit(box-shadow, 0 0 10px 0 rgba(0, 0, 0, 0.2));
+  @include webkit(box-sizing, border-box);
+  display: flex;
+  flex-direction: column;
+
+  header {
+    flex: 1;
+  }
+
+  main {
+    flex: 3;
+    @extend %clearfix;
+    position: relative;
+
+    .car-info {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: auto;
+    }
+
+    .car-img {
+      float: right;
+      height: 100px;
+    }
+
+    .car-number {
+      font-size: 14px;
+    }
+
+    .car-electric {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      display: inline-block;
+
+      li {
+        display: inline-block;
+        width: 5px;
+        height: 24px;
+        margin-right: 3px;
+        background-color: #e1e1e1;
+        border-radius: 100px;
+      }
+
+      @for $i from 1 through 10 {
+        &.active-li-#{$i} {
+          li:nth-child(-n + #{$i}) {
+            @include webkit-suffix(
+                            background,
+                            linear-gradient(#17a8fa, #108dd9)
+            );
+          }
+        }
+      }
+    }
+
+    .car-distance {
+      margin-left: 5px;
+      display: inline-block;
+
+      strong {
+        margin: 0 3px;
+        font-size: 20px;
+      }
+
+      sub {
+        position: relative;
+        top: -2px;
+      }
+
+      sub:first-of-type {
+        opacity: 0.6;
+      }
+    }
+
+  }
+
+  footer {
+    flex: 1;
+
+    .car-park {
+      border-top: 1px solid #e1e1e1;
+      display: block;
+      line-height: 50px;
+      color: $color-main;
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        margin-top: -4px;
+        border-top: 1px solid #7c7c7c;
+        border-right: 1px solid #7c7c7c;
+        @include webkit(transform, rotate(45deg));
+      }
+    }
+  }
+}
+
+.car-detail-hide {
+  display: none;
+}
+
+.car-detail-active {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 580px;
+  margin: 10px auto;
+  padding: 20px 20px 0;
+  background: #fff;
+  @include webkit(box-shadow, 0 0 10px 0 rgba(0, 0, 0, 0.2));
+  @include webkit(box-sizing, border-box);
+  border-radius: 24px;
+
+  header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e1e1e1;
+    position: relative;
+    color: #34393f;
+
+    &:after,
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      height: 14px;
+      border-left: 2px solid #999c9f;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    &:before {
+      @include webkit(transform, rotate(45deg));
+    }
+
+    &:after {
+      @include webkit(transform, rotate(-45deg));
+    }
+  }
+
+  .car-desc {
+    margin: 15px 0;
+  }
+
+  .car-img {
+    margin: 0 auto;
+    width: 100%;
+    min-height: 100px;
+    max-height: 200px;
+  }
+
+  .car-info {
+    @extend %clearfix;
+  }
+
+  .car-number {
+    float: left;
+    font-size: 18px;
+  }
+
+  .car-distance {
+    float: right;
+    display: inline-block;
+
+    strong {
+      margin: 0 3px;
+      font-size: 18px;
+    }
+
+    sub {
+      position: relative;
+      top: -2px;
+    }
+
+    sub:first-of-type {
+      opacity: 0.6;
+    }
+  }
+
+  .car-electric {
+    border: 8px solid #fff;
+    margin-top: 10px;
+    border-radius: 100px;
+    @include webkit(box-shadow, 0 0 6px 0 rgba(0, 0, 0, 0.1));
+    position: relative;
+    box-sizing: content-box;
+
+    .electric-bg {
+      display: block;
+      height: 6px;
+      background-color: #e1e1e1;
+      border-radius: 100px;
+    }
+
+    .electric-range {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 6px;
+      background-color: #0f9cee;
+      border-radius: 100px;
+    }
+
+
+  }
+
+  .car-rent-desc {
+    margin: 10px 0;
+    font-size: 12px;
+    color: #606060;
+  }
+
+  .car-rent-type {
+    li {
+      height: 30px;
+      padding: 0 12px 0 20px;
+      margin-bottom: 10px;
+      background-color: #f3f3f3;
+      border-color: #f3f3f3;
+      border-style: solid;
+      border-width: 2px;
+      border-radius: 10px;
+      line-height: 30px;
+
+      &.current {
+        border-color: #34393f;
+        background-color: #fff;
+      }
+    }
+
+    .car-rent-name {
+      float: left;
+    }
+
+    .car-rent-price {
+      float: right;
+    }
+  }
+
+  .car-select-btn {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 180px;
+    height: 40px;
+    border-radius: 100px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    line-height: 40px;
+    font-weight: 300;
+    background-color: $color-main;
+    margin: 0 auto -20px;
+    @include webkit(transition, all 0.2s ease 0s);
+
+    &:hover {
+      background-color: $color-blue;
+    }
+  }
+
+}
+
+// 公共部分
+.car-desc {
+  @extend %clearfix;
+
+  .car-logo {
+    float: left;
+
+    img {
+      display: inline-block;
+      height: 24px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .car-model {
+      font-size: 14px;
+    }
+  }
+
+  .car-attr {
+    float: right;
+    line-height: 24px;
+    opacity: 0.5;
+  }
+}

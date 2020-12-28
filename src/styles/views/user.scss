@@ -1,21 +1,41 @@
+.icon-user-link-1 {
+  background-image: url(~@/assets/images/icons/icon-router-link-001.png);
+}
+
+.icon-user-link-2 {
+  background-image: url(~@/assets/images/icons/icon-router-link-002.png);
+}
+
+.icon-user-link-3 {
+  background-image: url(~@/assets/images/icons/icon-router-link-003.png);
+}
+
+.icon-user-link-4 {
+  background-image: url(~@/assets/images/icons/icon-router-link-004.png);
+}
+
+.icon-user-link-5 {
+  background-image: url(~@/assets/images/icons/icon-router-link-005.png);
+}
+
 .user-wrap {
   padding: 30px;
 
   .user-info {
     display: flex;
-    padding: 64px 0 60px 5px;
+    padding: 48px 0 60px 5px;
   }
 
   .user-avatar {
-    width: 70px;
-    height: 70px;
+    width: 68px;
+    height: 68px;
     border-radius: 100%;
     border: 6px solid #2f343a;
   }
 
   .user-detail {
     flex: 1;
-    padding-left: 17px;
+    padding-left: 15px;
   }
 
   .user-email {
@@ -50,41 +70,20 @@
     color: #fff;
     font-size: 16px;
     border: none;
-    @include webkit-prefix(transition, all 0.3s ease 0s);
+    @include webkit(transition, all 0.3s ease 0s);
 
     &:hover {
       background-color: #10a0f2;
     }
   }
-  .user-select{
+
+  .sider-list {
+    margin: 0 -30px;
+
     .icon {
       width: 30px;
       height: 30px;
-      margin: 0 16px -10px 32px;
-    }
-    a {
-      display: block;
-      margin: 0 -30px;
-      height: 64px;
-      line-height: 64px;
-      color: rgba(255, 255, 255, 0.4);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-      font-size: 16px;
-      position: relative;
-
-      &:after {
-        content: "";
-        width: 10px;
-        height: 10px;
-        border-top: 3px solid rgba(189, 189, 189, 0.3);
-        border-left: 3px solid rgba(189, 189, 189, 0.3);
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: auto 20px auto auto;
-        @include webkit-prefix(transform, rotate(135deg))
-      }
+      margin: 0 16px -10px 0px;
     }
   }
 }

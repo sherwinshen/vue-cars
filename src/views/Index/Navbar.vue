@@ -23,17 +23,18 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
+@import "../../styles/views/navBar.scss";
+
 .navbar-wrap {
-  z-index: 100;
   position: fixed;
-  bottom: 40px;
+  bottom: 20px;
   left: 0;
   right: 0;
-  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 
   li {
     display: inline-block;
@@ -46,7 +47,7 @@ export default {
     border-radius: 40px;
     margin: 0 10px;
     cursor: pointer;
-    transition: all 0.3s ease 0s;
+    @include webkit(transition, all 0.3s ease 0s);
 
     &:hover {
       background-color: #fff;
@@ -56,19 +57,19 @@ export default {
   .navbar-logo {
     background-color: $color-main;
     color: #fff;
-    font-size: 26px;
-    width: 220px;
-    height: 70px;
-    border-radius: 70px;
-    line-height: 70px;
+    font-size: 24px;
+    width: 200px;
+    height: 60px;
+    border-radius: 60px;
+    line-height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 20px;
 
     .icon-car {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       margin: 0 5px;
       background-image: url(~@/assets/images/icons/icon-car.png);
     }

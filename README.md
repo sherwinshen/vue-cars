@@ -123,7 +123,7 @@ export default {
 
 ## 第14课时
 
-### 14.1 scss清除浮动
+### 14.1 SCSS清除浮动
 
 ```scss
 @mixin clearfix {
@@ -147,7 +147,7 @@ export default {
 
 ### 14.2 SCSS生成通用CSS
 
-<img src="/Users/Sherwin/Desktop/vue-cars/noteImg/14.2.png" style="zoom:50%;" />
+<img src="./noteImg/14.2.png" style="zoom:50%;" />
 
 如上图所示的需求，会显示一格电至十格电，这个时候就可以设置一些的通用的css样式，例如active-1代表前1个格子为蓝色，active-4代表前4个格子为蓝色，这时候我们就需要利用SCSS利用代码的思维来生成10个active-i，而不是我们自己手动重复写10个css样式。
 
@@ -213,3 +213,15 @@ mounted() {
   });
 }
 ```
+
+## 第18课时
+
+### 18.1 全局组件
+
+> 全局注册后即可直接使用，`<MyComponent></MyComponent>`
+
+```js
+import MyComponent from '@/components/MyComponent.vue'
+Vue.component("MyComponent", MyComponent); // 全局自定义组件
+```
+

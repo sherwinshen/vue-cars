@@ -1,0 +1,37 @@
+i[class^="icon"] {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.sider-list {
+  a {
+    display: block;
+    padding-left: 30px;
+    height: 64px;
+    line-height: 64px;
+    color: rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 16px;
+    position: relative;
+
+    &:after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid rgba(255, 255, 255, 0.4);
+      border-left: 2px solid rgba(255, 255, 255, 0.4);
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto 20px auto auto;
+      @include webkit(transform, rotate(135deg));
+    }
+  }
+}
