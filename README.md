@@ -147,7 +147,7 @@ export default {
 
 ### 14.2 SCSS生成通用CSS
 
-<img src="/Users/Sherwin/Desktop/Vue学习/源代码/vue-cars-admin/noteImg/14.2.png" style="zoom:50%;" />
+<img src="./noteImg/14.2.png" style="zoom:50%;" />
 
 如上图所示的需求，会显示一格电至十格电，这个时候就可以设置一些的通用的css样式，例如active-1代表前1个格子为蓝色，active-4代表前4个格子为蓝色，这时候我们就需要利用SCSS利用代码的思维来生成10个active-i，而不是我们自己手动重复写10个css样式。
 
@@ -199,7 +199,7 @@ npm install swiper vue-awesome-swiper --save
 
 需求描述：点击user icon则右侧滑动出现，点击其他区域则右侧滑动消失。
 
-<img src="/Users/Sherwin/Desktop/Vue学习/源代码/vue-cars-admin/noteImg/会员中心.jpg" style="zoom:80%;" />
+<img src="./noteImg/会员中心.jpg" style="zoom:80%;" />
 
 实现方案：在页面挂载一个mouseup监听函数，当右侧栏显示的时候，点击鼠标时判断鼠标点击的位置是否是右侧栏的区域（通过document.getElementById等方法获取），如果不是则更新使右侧滑动消失，反之，则不处理。
 
@@ -717,3 +717,10 @@ module.exports = {
   }
 }
 ```
+
+## 第42课时
+
+### 42.1 版本控制
+
+<img src="./noteImg/版本控制.png" style="zoom:80%;" />
+
