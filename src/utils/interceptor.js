@@ -4,9 +4,10 @@ import { Message } from "element-ui"; // 前面element-ui是在vue中全局引�
 import { getToken, getUsername } from "@/utils/cookies";
 
 // 创建axios，赋给变量service - 基本配置
-const BASEURL = process.env.NODE_ENV === "production" ? "" : "/api";
+// const BASEURL = process.env.NODE_ENV === "production" ? "" : "/api";
 const service = axios.create({
-  baseURL: BASEURL,
+  baseURL: "",
+  // baseURL: BASEURL,
   // baseURL: '/api',
   timeout: 8000 // 超时
 });

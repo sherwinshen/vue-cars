@@ -660,8 +660,60 @@ filters: {
 
 ### 41.1 多接口跨域配置
 
-首先，通过来设置不同的地址
+首先，通过`.env.development`文件预先设置不同的地址：
 
-然后，
+```
+# 管理端
+VUE_APP_API_LOGIN = "/apiLogin"
+VUE_API_DEV_LOGIN_TARGET = "http://www.web-jshtml.cn/api/cars"
 
-最后，
+# web端
+VUE_APP_API_WEB = "/apiWeb"
+VUE_API_DEV_WEB_TARGET = "http://www.web-jshtml.cn/api/cars/web"
+```
+
+然后，调用接口时使用不同的接口前缀以作区分，`.env.development`文件中的内容通过`process.env.名字`调用：
+
+```js
+export function GetCode(data) {
+  return service.request({
+    method: "post",
+    url: `${process.env.VUE_APP_API_LOGIN}/getCode/`,
+    data
+  });
+}
+```
+
+最后，在vue配置文件`vue.config.js`中重定向至真实地址即可：
+
+```js
+module.exports = {
+  // webpack-dev-server 相关配置
+  devServer: {
+    open: false, // 编译完成是否打开网页
+    host: "0.0.0.0", // 指定使用地址，默认localhost,0.0.0.0代表可以被外界访问
+    port: 8080, // 访问端口
+    https: false, // 编译失败时刷新页面
+    hot: true, // 开启热加载
+    hotOnly: false,
+    proxy: {
+      // 后端的接口：http://www.web-jshtml/api/cars   接口：/getCode/
+      [process.env.VUE_APP_API_LOGIN]: {
+        target: "http://www.web-jshtml.cn/api/cars", //真实服务器的地址
+        changeOrigin: true,
+        pathRewrite: {
+          [`^${process.env.VUE_APP_API_LOGIN}`]: ""
+        }
+      },
+      // 前端的接口：http://www.web-jshtml/api/cars/web
+      [process.env.VUE_APP_API_WEB]: {
+        target: process.env.VUE_API_DEV_WEB_TARGET, //真实服务器的地址
+        changeOrigin: true,
+        pathRewrite: {
+          [`^${process.env.VUE_APP_API_WEB}`]: ""
+        }
+      }
+    }
+  }
+}
+```
