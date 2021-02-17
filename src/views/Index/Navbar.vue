@@ -7,7 +7,9 @@
       <i class="icon icon-car"></i>
       <span>租车</span>
     </li>
-    <li><i class="icon icon-select icon-location"></i></li>
+    <li>
+      <i class="icon icon-select icon-location" @click="selfLocation"></i>
+    </li>
     <li><i class="icon icon-select icon-user" @click="goToUser"></i></li>
   </ul>
 </template>
@@ -18,6 +20,9 @@ export default {
   methods: {
     goToUser() {
       this.$router.push({ name: "User" });
+    },
+    selfLocation() {
+      this.$store.commit("location/SELF_LOCATION");
     }
   }
 };

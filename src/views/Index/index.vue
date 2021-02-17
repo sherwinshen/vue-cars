@@ -11,7 +11,7 @@
 
 <script>
 // import Car from "@/views/Index/Car";
-import Map from "@/views/Index/Map";
+import Map from "@/views/Map/Map";
 import Navbar from "@/views/Index/Navbar";
 
 import { Parking } from "@/api/parking";

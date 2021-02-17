@@ -24,6 +24,8 @@
 
 <script>
 import { AMapManager, lazyAMapApiLoaderInstance } from "vue-amap";
+import { selfLocation } from "@/views/Map/utils";
+
 let amapManager = new AMapManager();
 
 export default {
@@ -54,6 +56,13 @@ export default {
       ]
     };
   },
+  watch: {
+    "$store.state.location.selfLocation": {
+      handler() {
+        this.setLocation();
+      }
+    }
+  },
   methods: {
     // 初始化地图
     initMap() {
@@ -62,21 +71,15 @@ export default {
       this.$emit("callback", {
         funcName: "loadMap"
       });
-      // 浏览器定位
-      // eslint-disable-next-line no-undef
-      const geolocation = new AMap.Geolocation({
-        enableHighAccuracy: true, //是否使用高精度定位，默认:true
-        timeout: 10000, //超过10秒后停止定位，默认：5s
-        zoomToAccuracy: true, //定位成功后是否自动调整地图视野到定位点
-        markerOptions: {
-          content: " "
-        }
-      });
-      this.map.addControl(geolocation);
-      geolocation.getCurrentPosition((status, result) => {
-        if (status === "complete") {
-          const lng = result.position.lng;
-          const lat = result.position.lat;
+      this.setLocation();
+    },
+    // 地图定位
+    setLocation() {
+      selfLocation({
+        map: this.map,
+        onComplete: val => {
+          const lng = val.position.lng;
+          const lat = val.position.lat;
           const center = [lng, lat];
           this.center = center;
           this.circle[0].center = center;
