@@ -17,7 +17,8 @@ VueAMap.initAMapApiLoader({
     "AMap.PolyEditor",
     "AMap.CircleEditor",
     "AMap.MarkerClusterer",
-    "AMap.Geocoder"
+    "AMap.Geocoder",
+    "AMap.Geolocation"
   ],
   v: "1.4.4"
 });

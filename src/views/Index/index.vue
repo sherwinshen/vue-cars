@@ -3,21 +3,23 @@
     <div class="sider-wrap" id="sider" :class="{ open: show }">
       <router-view />
     </div>
-    <Car />
+    <!--    <Car />-->
     <Navbar></Navbar>
-    <Map />
+    <Map @callback="callback" />
   </div>
 </template>
 
 <script>
-import Car from "@/views/Index/Car";
+// import Car from "@/views/Index/Car";
 import Map from "@/views/Index/Map";
 import Navbar from "@/views/Index/Navbar";
+
+import { Parking } from "@/api/parking";
 
 export default {
   name: "Index",
   components: {
-    Car,
+    // Car,
     Map,
     Navbar
   },
@@ -33,6 +35,25 @@ export default {
         this.$router.push({ name: "Index" });
       }
     });
+  },
+  methods: {
+    // 公共 - 子组件回调
+    callback(params) {
+      if (params.funcName) {
+        this[params.funcName] && this[params.funcName](params.data);
+      }
+    },
+    // 地图加载完毕回调
+    loadMap() {
+      this.getParking();
+    },
+    // 获取停车场数据
+    getParking() {
+      Parking().then(response => {
+        const data = response.data.data;
+        console.log(data);
+      });
+    }
   }
 };
 </script>
