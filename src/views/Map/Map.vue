@@ -18,6 +18,24 @@
         :strokeOpacity="item.strokeOpacity"
         :strokeWeight="item.strokeWeight"
       ></el-amap-circle>
+      <!--覆盖物 - 停车场-->
+      <el-amap-marker
+        v-for="(item, index) in parking"
+        :key="item.id + index"
+        :content="item.content"
+        :offset="item.offset"
+        :position="item.position"
+        :vid="index"
+      ></el-amap-marker>
+      <!--覆盖物 - 车辆数-->
+      <el-amap-marker
+        v-for="(item, index) in parking"
+        :key="item.id"
+        :content="item.text"
+        :offset="item.offsetText"
+        :position="item.position"
+        :vid="index"
+      ></el-amap-marker>
     </el-amap>
   </div>
 </template>
@@ -53,7 +71,9 @@ export default {
           strokeOpacity: "0.2",
           strokeWeight: "30"
         }
-      ]
+      ],
+      // 遮盖物数据-停车场
+      parking: []
     };
   },
   watch: {
@@ -85,6 +105,10 @@ export default {
           this.circle[0].center = center;
         }
       });
+    },
+    // 停车场数据
+    parkingData(value) {
+      this.parking = value;
     }
   }
 };

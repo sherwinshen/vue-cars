@@ -727,3 +727,42 @@ module.exports = {
 ## 第43课时
 
 略。
+
+## 第44课时
+
+### 44.1 组件通信-Vuex
+
+> 地图上存在一个按钮，点击其使得地图定位到当前位置，可以通过Vuex来实现。
+
+首先，Vuex中定义一个状态值selfLocation，当某组件点击按钮时触发mutations，使得selfLocation的值发生改变。
+
+```js
+const state = {
+  selfLocation: true
+};
+const mutations = {
+  SELF_LOCATION() {
+    state.selfLocation = !state.selfLocation; // 在map中监听值改变从而进行处理
+  }
+};
+```
+
+```js
+ this.$store.commit("location/SELF_LOCATION");
+```
+
+然后，在地图组件中监听状态值selfLocation，当该值发生变化时，就触发响应的方法，使得地图定位到当前位置。
+
+```js
+watch: {
+  "$store.state.location.selfLocation": {
+    handler() {
+      this.setLocation();
+    }
+  }
+}
+```
+
+## 第45课时
+
+略。

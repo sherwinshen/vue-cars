@@ -1,4 +1,4 @@
-// 地图定位获取（浏览器定位
+// 地图定位获取（浏览器定位）
 let geolocation = null;
 export function selfLocation(params) {
   if (!geolocation) {
