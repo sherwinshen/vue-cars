@@ -56,13 +56,27 @@ export default {
             item.position = item.lnglat.split(",");
             item.content = `<img src='${require("@/assets/images/parking_location_img.png")}' alt=""/>`;
             item.offset = [-35, -60];
-            item.offsetText = [-35, -40];
+            item.offsetText = [-30, -55];
             item.label = { content: "11", offset: [10, 10] };
-            item.text = `<div style="width: 70px; font-size: 20px; color: #fff; text-align: center;">${item.carsNumber}</div>`;
+            item.text = `<div style="width: 60px; font-size: 20px; color: #fff; text-align: center;line-height: 50px; height: 60px;">${item.carsNumber}</div>`;
+            item.events = {
+              click: e => this.walking(e)
+            };
           });
         // 停车场覆盖物渲染
         this.$refs.map.parkingData(data);
       });
+    },
+    // 绘制停车场路径
+    walking(e) {
+      const data = e.target.getExtData();
+      // 先存储某些数据
+      this.$refs.map.saveData({
+        key: "parkingData",
+        value: data
+      });
+      // 在处理路径绘制
+      this.$refs.map.handlerWalking(data.lnglat.split(","));
     }
   }
 };

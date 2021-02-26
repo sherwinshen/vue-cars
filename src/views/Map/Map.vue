@@ -27,12 +27,24 @@
         :position="item.position"
         :vid="index"
       ></el-amap-marker>
-      <!--覆盖物 - 车辆数-->
+      <!--覆盖物 - 停车场（车辆数）-->
       <el-amap-marker
         v-for="(item, index) in parking"
+        :extData="item"
+        :events="item.events"
         :key="item.id"
         :content="item.text"
         :offset="item.offsetText"
+        :position="item.position"
+        :vid="index"
+      ></el-amap-marker>
+      <!--覆盖物 - 停车场（距离信息）-->
+      <el-amap-marker
+        v-for="(item, index) in parkingInfo"
+        zIndex="1000"
+        :key="item.id"
+        :content="item.text"
+        :offset="item.offset"
         :position="item.position"
         :vid="index"
       ></el-amap-marker>
@@ -42,7 +54,7 @@
 
 <script>
 import { AMapManager, lazyAMapApiLoaderInstance } from "vue-amap";
-import { selfLocation } from "@/views/Map/utils";
+import { selfLocation, DrawPath } from "@/views/Map/utils";
 
 let amapManager = new AMapManager();
 
@@ -62,18 +74,14 @@ export default {
           });
         }
       },
+      self_lng: "",
+      self_lat: "",
       // 遮盖物数据-圆
-      circle: [
-        {
-          center: [0, 0],
-          radius: 4,
-          color: "#393e43",
-          strokeOpacity: "0.2",
-          strokeWeight: "30"
-        }
-      ],
+      circle: [],
       // 遮盖物数据-停车场
-      parking: []
+      parking: [],
+      // 遮盖物数据-停车场距离
+      parkingInfo: []
     };
   },
   watch: {
@@ -97,18 +105,60 @@ export default {
     setLocation() {
       selfLocation({
         map: this.map,
-        onComplete: val => {
-          const lng = val.position.lng;
-          const lat = val.position.lat;
-          const center = [lng, lat];
-          this.center = center;
-          this.circle[0].center = center;
-        }
+        onComplete: val => this.selfLocationComplete(val)
       });
+    },
+    // 地图定位完成回调
+    selfLocationComplete(val) {
+      const lng = val.position.lng;
+      const lat = val.position.lat;
+      this.self_lng = lng;
+      this.self_lat = lat;
+      const center = [lng, lat];
+      this.center = center;
+      const circle_item = {
+        center: [0, 0],
+        radius: 4,
+        color: "#393e43",
+        strokeOpacity: "0.2",
+        strokeWeight: "30"
+      };
+      circle_item.center = center;
+      this.circle.push(circle_item);
     },
     // 停车场数据
     parkingData(value) {
       this.parking = value;
+    },
+    // 存储数据
+    saveData(params) {
+      if (this[params.key]) {
+        this[params.key] = params.value;
+      }
+    },
+    // 路径绘制
+    handlerWalking(lnglat) {
+      DrawPath({
+        map: this.map,
+        position_start: [this.self_lng, this.self_lat],
+        position_end: lnglat,
+        complete: val => this.handlerWalkingComplete(val)
+      });
+    },
+    // 路径绘制完成回调
+    handlerWalkingComplete(val) {
+      this.parkingInfo = [
+        {
+          position: this.parkingData.lnglat.split(","),
+          text: `<div style="color: white; border-radius: 100px; padding: 0 12px; font-size: 12px; background-color: #34393f; line-height: 48px; height: 50px; width: 150px;">
+                    <span style="font-size: 20px;">${this.parkingData.carsNumber}</span>
+                    辆车
+                    <span style="display: inline-block; height: 15px; width: 1px; background-color: white; opacity: 0.3; margin: 0 5px -3px;"></span>
+                    <span>距离您${val.routes[0].distance}米</span>
+                  </div>`,
+          offset: [-24, -54]
+        }
+      ];
     }
   }
 };
