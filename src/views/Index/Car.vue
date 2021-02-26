@@ -2,23 +2,8 @@
   <div class="car-wrap">
     <div class="swiper-wrap">
       <swiper ref="mySwiper" :options="swiperOptions">
-        <swiper-slide>
-          <Car-item :isActive="true"></Car-item>
-        </swiper-slide>
-        <swiper-slide>
-          <Car-item></Car-item>
-        </swiper-slide>
-        <swiper-slide>
-          <Car-item :isActive="true"></Car-item>
-        </swiper-slide>
-        <swiper-slide>
-          <Car-item></Car-item>
-        </swiper-slide>
-        <swiper-slide>
-          <Car-item :isActive="true"></Car-item>
-        </swiper-slide>
-        <swiper-slide>
-          <Car-item></Car-item>
+        <swiper-slide v-for="item in carsList" :key="item.id">
+          <Car-item :data="item" :isActive="false" />
         </swiper-slide>
       </swiper>
       <div
@@ -39,6 +24,7 @@
 import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
 import "swiper/swiper-bundle.css";
 import CarItem from "@/components/CarItem/index";
+import { GetCarsList } from "@/api/cars";
 
 export default {
   name: "Car",
@@ -56,7 +42,8 @@ export default {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
         }
-      }
+      },
+      carsList: []
     };
   },
   directives: {
@@ -73,6 +60,13 @@ export default {
     },
     swiperNext() {
       this.swiper.slideNext();
+    },
+    // 获取车辆列表
+    getCarsList(parkingId) {
+      GetCarsList({ parkingId }).then(response => {
+        const data = response.data.data.data;
+        data && (this.carsList = data);
+      });
     }
   }
 };

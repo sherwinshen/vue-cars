@@ -1,18 +1,21 @@
 <template>
   <div class="car-item-wrap">
+    <!--精简模式-->
     <div class="car-overview">
       <header class="car-desc">
         <h4 class="car-logo">
-          <img src="../../assets/images/cars-logo.png" alt="Mustang 2019款" />
-          <span class="car-model">Mustang 2019款</span>
+          <img :src="data.imgUrl" :alt="data.carsMode" />
+          <span class="car-model">{{ data.carsMode }}</span>
         </h4>
-        <p class="car-attr">新能源汽车 5座</p>
+        <p class="car-attr">
+          {{ data.energyType === 1 ? "新能源汽车" : "燃油车" }} 5座
+        </p>
       </header>
       <main>
         <div class="car-info">
-          <h4 class="car-number">粤 B745N8</h4>
+          <h4 class="car-number">{{ data.carsNumber }}</h4>
           <div>
-            <ul class="car-electric active-li-8">
+            <ul class="car-electric" :class="data.oil | electricNumber">
               <li></li>
               <li></li>
               <li></li>
@@ -34,9 +37,12 @@
         <img class="car-img" src="../../assets/images/pic001.jpg" alt="" />
       </main>
       <footer>
-        <a href="javascript: void(0);" class="car-park">某某停车场</a>
+        <a href="javascript: void(0);" class="car-park">{{
+          data.parkingName
+        }}</a>
       </footer>
     </div>
+    <!--展开模式-->
     <div
       :class="{ 'car-detail-active': isActive, 'car-detail-hide': !isActive }"
     >
@@ -104,6 +110,16 @@ export default {
     isActive: {
       type: Boolean,
       default: false
+    },
+    data: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  filters: {
+    electricNumber(val) {
+      const number = Math.round(val / 10);
+      return `active-li-${number}`;
     }
   }
 };

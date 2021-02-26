@@ -3,14 +3,14 @@
     <div class="sider-wrap" id="sider" :class="{ open: show }">
       <router-view />
     </div>
-    <!--    <Car />-->
+    <Car ref="car" />
     <Navbar></Navbar>
     <Map ref="map" @callback="callback" />
   </div>
 </template>
 
 <script>
-// import Car from "@/views/Index/Car";
+import Car from "@/views/Index/Car";
 import Map from "@/views/Map/Map";
 import Navbar from "@/views/Index/Navbar";
 
@@ -19,7 +19,7 @@ import { Parking } from "@/api/parking";
 export default {
   name: "Index",
   components: {
-    // Car,
+    Car,
     Map,
     Navbar
   },
@@ -60,7 +60,10 @@ export default {
             item.label = { content: "11", offset: [10, 10] };
             item.text = `<div style="width: 60px; font-size: 20px; color: #fff; text-align: center;line-height: 50px; height: 60px;">${item.carsNumber}</div>`;
             item.events = {
-              click: e => this.walking(e)
+              click: e => {
+                this.walking(e);
+                this.getCarsList(e);
+              }
             };
           });
         // 停车场覆盖物渲染
@@ -77,6 +80,11 @@ export default {
       });
       // 在处理路径绘制
       this.$refs.map.handlerWalking(data.lnglat.split(","));
+    },
+    // 获取停车场数据
+    getCarsList(e) {
+      const data = e.target.getExtData();
+      this.$refs.car && this.$refs.car.getCarsList(data.id);
     }
   }
 };
