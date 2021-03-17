@@ -55,8 +55,8 @@
         &.active-li-#{$i} {
           li:nth-child(-n + #{$i}) {
             @include webkit-suffix(
-                            background,
-                            linear-gradient(#17a8fa, #108dd9)
+              background,
+              linear-gradient(#17a8fa, #108dd9)
             );
           }
         }
@@ -81,7 +81,6 @@
         opacity: 0.6;
       }
     }
-
   }
 
   footer {
@@ -217,8 +216,6 @@
       background-color: #0f9cee;
       border-radius: 100px;
     }
-
-
   }
 
   .car-rent-desc {
@@ -276,7 +273,6 @@
       background-color: $color-blue;
     }
   }
-
 }
 
 // 公共部分
@@ -288,19 +284,23 @@
 
     img {
       display: inline-block;
-      height: 24px;
+      height: 30px;
       margin-right: 10px;
       vertical-align: middle;
     }
 
     .car-model {
       font-size: 14px;
+      line-height: 30px;
     }
   }
 
   .car-attr {
     float: right;
-    line-height: 24px;
+    line-height: 30px;
     opacity: 0.5;
+    span {
+      padding: 0 5px;
+    }
   }
 }

@@ -54,7 +54,7 @@
 
 <script>
 import { AMapManager, lazyAMapApiLoaderInstance } from "vue-amap";
-import { selfLocation, DrawPath } from "@/views/Map/utils";
+import { DrawPath } from "@/views/Map/utils";
 
 let amapManager = new AMapManager();
 
@@ -65,8 +65,8 @@ export default {
     return {
       map: null,
       amapManager,
-      zoom: 13,
-      center: [0, 0],
+      zoom: 15,
+      center: [121.212077, 31.279661],
       events: {
         init() {
           lazyAMapApiLoaderInstance.load().then(() => {
@@ -103,9 +103,16 @@ export default {
     },
     // 地图定位
     setLocation() {
-      selfLocation({
-        map: this.map,
-        onComplete: val => this.selfLocationComplete(val)
+      // 本地调试中 getCurrentPosition() and watchPosition() 在 insecure origins 环境下无法使用了，此处定位直接写死了
+      // selfLocation({
+      //   map: this.map,
+      //   onComplete: val => this.selfLocationComplete(val)
+      // });
+      this.selfLocationComplete({
+        position: {
+          lng: 121.210077,
+          lat: 31.289661
+        }
       });
     },
     // 地图定位完成回调

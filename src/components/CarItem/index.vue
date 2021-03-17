@@ -8,7 +8,8 @@
           <span class="car-model">{{ data.carsMode }}</span>
         </h4>
         <p class="car-attr">
-          {{ data.energyType === 1 ? "新能源汽车" : "燃油车" }} 5座
+          <span>{{ data.carsAttr | energyType }}</span>
+          <span>{{ data.carsAttr | seatNumber }}座</span>
         </p>
       </header>
       <main>
@@ -29,12 +30,12 @@
             </ul>
             <p class="car-distance">
               <sub>约</sub>
-              <strong>600</strong>
+              <strong>{{ data.countKm }}</strong>
               <sub>KM</sub>
             </p>
           </div>
         </div>
-        <img class="car-img" src="../../assets/images/pic001.jpg" alt="" />
+        <img class="car-img" :src="data.carsImg" alt="" />
       </main>
       <footer>
         <a href="javascript: void(0);" class="car-park">{{
@@ -104,6 +105,8 @@
 </template>
 
 <script>
+import { getCarsAttrKey } from "@/utils/format";
+
 export default {
   name: "CarItem",
   props: {
@@ -120,6 +123,20 @@ export default {
     electricNumber(val) {
       const number = Math.round(val / 10);
       return `active-li-${number}`;
+    },
+    energyType(val) {
+      return getCarsAttrKey({
+        data: val,
+        parentKey: "basics",
+        childKey: "energy_type"
+      });
+    },
+    seatNumber(val) {
+      return getCarsAttrKey({
+        data: val,
+        parentKey: "carsBody",
+        childKey: "seat_number"
+      });
     }
   }
 };
