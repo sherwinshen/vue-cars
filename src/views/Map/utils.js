@@ -43,3 +43,10 @@ export function DrawPath(params) {
     }
   });
 }
+
+// 清除地图路径
+export function ClearPath() {
+  if (path) {
+    path.clear();
+  }
+}

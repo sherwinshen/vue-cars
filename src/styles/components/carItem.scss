@@ -1,5 +1,35 @@
+// 公共部分
+.car-desc {
+  @extend %clearfix;
+
+  .car-logo {
+    float: left;
+
+    img {
+      display: inline-block;
+      height: 30px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .car-model {
+      font-size: 14px;
+      line-height: 30px;
+    }
+  }
+
+  .car-attr {
+    float: right;
+    line-height: 30px;
+    opacity: 0.5;
+    span {
+      padding: 0 5px;
+    }
+  }
+}
+
+// 精简模式
 .car-overview {
-  width: 400px;
   height: 220px;
   margin: 10px auto;
   padding: 20px 20px 0;
@@ -109,22 +139,22 @@
   }
 }
 
-.car-detail-hide {
-  display: none;
-}
-
-.car-detail-active {
+// 展开模式
+.car-detail {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 580px;
   margin: 10px auto;
   padding: 20px 20px 0;
   background: #fff;
   @include webkit(box-shadow, 0 0 10px 0 rgba(0, 0, 0, 0.2));
   @include webkit(box-sizing, border-box);
+  @include webkit(transition, all 0.3s ease 0s);
   border-radius: 24px;
+  min-height: 220px;
+  height: 100%;
+  overflow-y: auto;
 
   header {
     padding-bottom: 10px;
@@ -132,17 +162,29 @@
     position: relative;
     color: #34393f;
 
-    &:after,
-    &:before {
-      content: "";
+    .car-close {
       position: absolute;
       top: 0;
       bottom: 0;
-      right: 0;
-      height: 14px;
-      border-left: 2px solid #999c9f;
-      margin-right: 10px;
+      right: 10px;
       cursor: pointer;
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 15px;
+        margin-left: -1px;
+        margin-top: -10px;
+        border-left: 2px solid #999c9f;
+      }
+      &:before {
+        @include webkit(transform, rotate(45deg));
+      }
+      &:after {
+        @include webkit(transform, rotate(-45deg));
+      }
     }
 
     &:before {
@@ -159,10 +201,8 @@
   }
 
   .car-img {
-    margin: 0 auto;
+    margin: 0 auto 20px;
     width: 100%;
-    min-height: 100px;
-    max-height: 200px;
   }
 
   .car-info {
@@ -253,7 +293,7 @@
 
   .car-select-btn {
     display: block;
-    position: absolute;
+    position: relative;
     bottom: 0;
     left: 0;
     right: 0;
@@ -266,41 +306,11 @@
     line-height: 40px;
     font-weight: 300;
     background-color: $color-main;
-    margin: 0 auto -20px;
+    margin: 20px auto 30px;
     @include webkit(transition, all 0.2s ease 0s);
 
     &:hover {
       background-color: $color-blue;
-    }
-  }
-}
-
-// 公共部分
-.car-desc {
-  @extend %clearfix;
-
-  .car-logo {
-    float: left;
-
-    img {
-      display: inline-block;
-      height: 30px;
-      margin-right: 10px;
-      vertical-align: middle;
-    }
-
-    .car-model {
-      font-size: 14px;
-      line-height: 30px;
-    }
-  }
-
-  .car-attr {
-    float: right;
-    line-height: 30px;
-    opacity: 0.5;
-    span {
-      padding: 0 5px;
     }
   }
 }

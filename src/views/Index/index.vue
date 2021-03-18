@@ -3,7 +3,7 @@
     <div class="sider-wrap" id="sider" :class="{ open: show }">
       <router-view />
     </div>
-    <Car ref="car" />
+    <Car ref="car" @callback="callback" />
     <Navbar></Navbar>
     <Map ref="map" @callback="callback" />
   </div>
@@ -27,14 +27,6 @@ export default {
     show() {
       return this.$route.name !== "Index";
     }
-  },
-  mounted() {
-    document.addEventListener("mouseup", e => {
-      const sider = document.getElementById("sider");
-      if (sider && this.show && !sider.contains(e.target)) {
-        this.$router.push({ name: "Index" });
-      }
-    });
   },
   methods: {
     // 公共 - 子组件回调
@@ -61,6 +53,7 @@ export default {
             item.text = `<div style="width: 60px; font-size: 20px; color: #fff; text-align: center;line-height: 50px; height: 60px;">${item.carsNumber}</div>`;
             item.events = {
               click: e => {
+                this.$store.commit("app/SET_CARS_LIST_REQUEST", true);
                 this.walking(e);
                 this.getCarsList(e);
               }
@@ -80,6 +73,10 @@ export default {
       });
       // 在处理路径绘制
       this.$refs.map.handlerWalking(data.lnglat.split(","));
+    },
+    // 清除停车场路径
+    clearWalking() {
+      this.$refs.map.clearWalking();
     },
     // 获取停车场数据
     getCarsList(e) {

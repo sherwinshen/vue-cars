@@ -1,6 +1,6 @@
 <template>
   <div class="car-wrap">
-    <div class="swiper-wrap">
+    <div class="swiper-wrap" v-if="carsList.length > 0">
       <swiper ref="mySwiper" :options="swiperOptions">
         <swiper-slide v-for="item in carsList" :key="item.id">
           <Car-item :data="item" :isActive="false" />
@@ -54,6 +54,19 @@ export default {
       return this.$refs.mySwiper.$swiper;
     }
   },
+  watch: {
+    "$store.state.app.isClickCarsList": {
+      handler(newValue) {
+        if (!newValue) {
+          this.carsList = [];
+          this.$emit("callback", {
+            funcName: "clearWalking"
+          });
+        }
+        this.$store.commit("app/SET_CARS_LIST_STATUS", true);
+      }
+    }
+  },
   methods: {
     swiperPrev() {
       this.swiper.slidePrev();
@@ -66,6 +79,7 @@ export default {
       GetCarsList({ parkingId }).then(response => {
         const data = response.data.data.data;
         data && (this.carsList = data);
+        this.$store.commit("app/SET_CARS_LIST_REQUEST", false);
       });
     }
   }

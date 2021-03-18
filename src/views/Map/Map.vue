@@ -54,7 +54,7 @@
 
 <script>
 import { AMapManager, lazyAMapApiLoaderInstance } from "vue-amap";
-import { DrawPath } from "@/views/Map/utils";
+import { DrawPath, ClearPath } from "@/views/Map/utils";
 
 let amapManager = new AMapManager();
 
@@ -65,7 +65,7 @@ export default {
     return {
       map: null,
       amapManager,
-      zoom: 15,
+      zoom: 16,
       center: [121.212077, 31.279661],
       events: {
         init() {
@@ -125,10 +125,10 @@ export default {
       this.center = center;
       const circle_item = {
         center: [0, 0],
-        radius: 4,
-        color: "#393e43",
+        radius: 20,
+        color: "#ff4343",
         strokeOpacity: "0.2",
-        strokeWeight: "30"
+        strokeWeight: "20"
       };
       circle_item.center = center;
       this.circle.push(circle_item);
@@ -151,6 +151,11 @@ export default {
         position_end: lnglat,
         complete: val => this.handlerWalkingComplete(val)
       });
+    },
+    // 清除路径绘制
+    clearWalking() {
+      ClearPath();
+      this.parkingInfo = [];
     },
     // 路径绘制完成回调
     handlerWalkingComplete(val) {
