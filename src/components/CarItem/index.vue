@@ -87,21 +87,14 @@
             取车约支付12.0元停车费，实际补贴12.0元
           </p>
           <ul class="car-rent-type">
-            <li>
-              <h4 class="car-rent-name">日租车</h4>
-              <span class="car-rent-price">￥300/1天</span>
-            </li>
-            <li>
-              <h4 class="car-rent-name">日租车</h4>
-              <span class="car-rent-price">￥300/1天</span>
-            </li>
-            <li>
-              <h4 class="car-rent-name">日租车</h4>
-              <span class="car-rent-price">￥300/1天</span>
-            </li>
-            <li class="current">
-              <h4 class="car-rent-name">日租车</h4>
-              <span class="car-rent-price">￥300/1天</span>
+            <li
+              v-for="item in leaseListData"
+              :class="{ current: leaseId === item.carsLeaseTypeId }"
+              :key="item.carsLeaseTypeId"
+              @click="selectLeaseType(item)"
+            >
+              <h4 class="car-rent-name">{{ item.carsLeaseTypeName }}</h4>
+              <span class="car-rent-price">￥{{ item.price }}</span>
             </li>
           </ul>
         </div>
@@ -115,6 +108,7 @@
 
 <script>
 import { getCarsAttrKey } from "@/utils/format";
+import { GetLeaseList } from "@/api/cars";
 
 export default {
   name: "CarItem",
@@ -152,10 +146,13 @@ export default {
     return {
       carsInfoShow: false,
       cars_info_height: 0,
-      timer: null
+      timer: null,
+      leaseListData: [], // 租赁类型列表
+      leaseId: "" // 租赁ID
     };
   },
   methods: {
+    // 展开详情
     openCarsInfo() {
       this.carsInfoShow = true;
       if (this.timer) {
@@ -167,10 +164,29 @@ export default {
           document.documentElement.clientHeight || document.body.clientHeight;
         this.cars_info_height = viewHeight - 150;
       }, 50);
+      this.getLaseList();
     },
+    // 关闭详情
     closeCarsInfo() {
       this.cars_info_height = 0;
       this.carsInfoShow = false;
+    },
+    //  获取租赁类
+    getLaseList() {
+      // 前面请求过就不要重复请求了
+      if (this.leaseListData && this.leaseListData.length > 0) {
+        return false;
+      }
+      GetLeaseList({ carsId: this.data.id }).then(response => {
+        const dataItem = response.data.data.data;
+        if (dataItem) {
+          this.leaseListData = dataItem;
+        }
+      });
+    },
+    // 选择租赁类
+    selectLeaseType(data) {
+      this.leaseId = data.carsLeaseTypeId;
     }
   }
 };
