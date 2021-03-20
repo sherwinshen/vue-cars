@@ -7,6 +7,8 @@ import "./utils/amap";
 // element UI
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+// 路由守卫
+import "@/router/guard";
 
 Vue.use(ElementUI);
 

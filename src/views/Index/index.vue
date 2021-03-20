@@ -13,8 +13,10 @@
 import Car from "@/views/Index/Car";
 import Map from "@/views/Map/Map";
 import Navbar from "@/views/Index/Navbar";
+import sha1 from "js-sha1";
 
 import { Parking } from "@/api/parking";
+import { GetCode } from "@/api/login";
 
 export default {
   name: "Index",
@@ -27,6 +29,24 @@ export default {
     show() {
       return this.$route.name !== "Index";
     }
+  },
+  mounted() {
+    // 登陆后台管理账户（为了对应后台管理系统的数据，实际应用中不需要）
+    const requestData = {
+      username: "sw1@qq.com",
+      password: sha1("sw1234"),
+      code: ""
+    };
+    // 1.获取验证码
+    GetCode({
+      username: requestData.username,
+      module: "login"
+    }).then(response => {
+      const msg = response.data.message;
+      requestData.code = msg.split("：")[1];
+      // 2. 登陆
+      this.$store.dispatch("login/adminLogin", requestData);
+    });
   },
   methods: {
     // 公共 - 子组件回调

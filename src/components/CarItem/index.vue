@@ -49,56 +49,58 @@
       :style="'height:' + cars_info_height + 'px'"
       class="car-detail"
     >
-      <header>
-        <h4>{{ data.parkingName }}</h4>
-        <i class="car-close" @click="closeCarsInfo"></i>
-      </header>
-      <main>
-        <div class="car-desc">
-          <h4 class="car-logo">
-            <img :src="data.imgUrl" :alt="data.carsMode" />
-            <span class="car-model">{{ data.carsMode }}</span>
-          </h4>
-          <p class="car-attr">
-            <span>{{ data.carsAttr | energyType }}</span>
-            <span>{{ data.carsAttr | seatNumber }}座</span>
-          </p>
-        </div>
-        <div>
-          <img class="car-img" :src="data.carsImg" alt="" />
-          <div class="car-info">
-            <h4 class="car-number">{{ data.carsNumber }}</h4>
-            <p class="car-distance">
-              <sub>约</sub>
-              <strong>{{ data.countKm }}</strong>
-              <sub>KM</sub>
+      <section class="car-info-main">
+        <header>
+          <h4>{{ data.parkingName }}</h4>
+          <i class="car-close" @click="closeCarsInfo"></i>
+        </header>
+        <main>
+          <div class="car-desc">
+            <h4 class="car-logo">
+              <img :src="data.imgUrl" :alt="data.carsMode" />
+              <span class="car-model">{{ data.carsMode }}</span>
+            </h4>
+            <p class="car-attr">
+              <span>{{ data.carsAttr | energyType }}</span>
+              <span>{{ data.carsAttr | seatNumber }}座</span>
             </p>
           </div>
-          <div class="car-electric">
-            <span
-              class="electric-range"
-              :style="`width: ${Math.round(data.oil / 10) * 10}%`"
-            ></span>
-            <span class="electric-bg"></span>
+          <div>
+            <img class="car-img" :src="data.carsImg" alt="" />
+            <div class="car-info">
+              <h4 class="car-number">{{ data.carsNumber }}</h4>
+              <p class="car-distance">
+                <sub>约</sub>
+                <strong>{{ data.countKm }}</strong>
+                <sub>KM</sub>
+              </p>
+            </div>
+            <div class="car-electric">
+              <span
+                class="electric-range"
+                :style="`width: ${Math.round(data.oil / 10) * 10}%`"
+              ></span>
+              <span class="electric-bg"></span>
+            </div>
           </div>
-        </div>
-        <div class="cars-rent">
-          <p class="text-align-center car-rent-desc">
-            取车约支付12.0元停车费，实际补贴12.0元
-          </p>
-          <ul class="car-rent-type">
-            <li
-              v-for="item in leaseListData"
-              :class="{ current: leaseId === item.carsLeaseTypeId }"
-              :key="item.carsLeaseTypeId"
-              @click="selectLeaseType(item)"
-            >
-              <h4 class="car-rent-name">{{ item.carsLeaseTypeName }}</h4>
-              <span class="car-rent-price">￥{{ item.price }}</span>
-            </li>
-          </ul>
-        </div>
-      </main>
+          <div class="cars-rent">
+            <p class="text-align-center car-rent-desc">
+              取车约支付12.0元停车费，实际补贴12.0元
+            </p>
+            <ul class="car-rent-type">
+              <li
+                v-for="item in leaseListData"
+                :class="{ current: leaseId === item.carsLeaseTypeId }"
+                :key="item.carsLeaseTypeId"
+                @click="selectLeaseType(item)"
+              >
+                <h4 class="car-rent-name">{{ item.carsLeaseTypeName }}</h4>
+                <span class="car-rent-price">￥{{ item.price }}</span>
+              </li>
+            </ul>
+          </div>
+        </main>
+      </section>
       <footer>
         <a href="javascript: void(0);" class="car-select-btn">预约用车</a>
       </footer>

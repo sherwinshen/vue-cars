@@ -15,11 +15,17 @@
 </template>
 
 <script>
+import { getAccountToken } from "@/utils/cookies";
+
 export default {
   name: "Navbar",
   methods: {
     goToUser() {
-      this.$router.push({ name: "User" });
+      if (getAccountToken()) {
+        this.$router.push({ name: "User" });
+      } else {
+        this.$router.push({ name: "Login" });
+      }
     },
     selfLocation() {
       this.$store.commit("location/SELF_LOCATION");

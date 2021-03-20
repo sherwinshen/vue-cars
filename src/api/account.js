@@ -34,7 +34,7 @@ export function Login(data) {
 }
 
 /**
- * 登录
+ * 忘记密码
  */
 export function Forget(data) {
   return service.request({
