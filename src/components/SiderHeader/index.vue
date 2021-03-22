@@ -1,7 +1,7 @@
 <template>
   <div class="sider-header-wrap">
     <i class="icon"></i>
-    <h4 class="title text-align-center">{{ title }}</h4>
+    <h4 class="title text-center">{{ title }}</h4>
   </div>
 </template>
 

@@ -49,6 +49,9 @@ export default {
   methods: {
     enterInput(value) {
       this.$emit("update:value", value);
+    },
+    init(data) {
+      this.email = data;
     }
   }
 };

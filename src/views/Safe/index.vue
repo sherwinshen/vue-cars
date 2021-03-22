@@ -1,13 +1,13 @@
 <template>
   <div class="safe-wrap">
-    <sider-header title="安全设置"></sider-header>
+    <BackHeader />
     <div>
       <ul class="sider-list">
         <router-link :to="{ name: 'Password' }">
-          修改登陆密码
+          重置密码
         </router-link>
         <router-link :to="{ name: 'Capital' }">
-          设置支付密码
+          设置资金密码
         </router-link>
         <router-link :to="{ name: 'Bank' }">
           绑定银行卡
@@ -18,12 +18,12 @@
 </template>
 
 <script>
-import SiderHeader from "@/components/SiderHeader/index";
+import BackHeader from "@/components/BackHeader";
 
 export default {
   name: "Safe",
   components: {
-    SiderHeader
+    BackHeader
   }
 };
 </script>

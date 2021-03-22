@@ -120,14 +120,30 @@ const routes = [
         },
         component: () => import("../views/Order/detailed")
       },
-      // 充值
+      // 支付相关
       {
         path: "/recharge",
         name: "Recharge",
         meta: {
           title: "充值"
         },
-        component: () => import("../views/Recharge/index")
+        component: () => import("../views/Pay/index")
+      },
+      {
+        path: "/payStatus",
+        name: "PayStatus",
+        meta: {
+          title: "支付状态"
+        },
+        component: () => import("../views/Pay/status")
+      },
+      {
+        path: "/payResult",
+        name: "PayResult",
+        meta: {
+          title: "支付结果"
+        },
+        component: () => import("../views/Pay/result")
       }
     ]
   }

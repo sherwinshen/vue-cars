@@ -84,7 +84,7 @@
             </div>
           </div>
           <div class="cars-rent">
-            <p class="text-align-center car-rent-desc">
+            <p class="text-center car-rent-desc">
               取车约支付12.0元停车费，实际补贴12.0元
             </p>
             <ul class="car-rent-type">

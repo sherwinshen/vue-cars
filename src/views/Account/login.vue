@@ -9,8 +9,8 @@
     </BackHeader>
     <div class="form-wrap">
       <el-form class="form-content" ref="form" :model="form" size="medium">
-        <Username :value.sync="form.email" />
-        <Pwd :value.sync="form.password" />
+        <Username ref="username" :value.sync="form.email" />
+        <Pwd ref="password" :value.sync="form.password" />
         <Code
           :value.sync="form.code"
           :email="form.email"
@@ -58,6 +58,9 @@ export default {
       }
     };
   },
+  mounted() {
+    this.setInit();
+  },
   methods: {
     // 公共回调
     callback(params) {
@@ -79,6 +82,11 @@ export default {
           return false;
         }
       });
+    },
+    // 设置初始值
+    setInit() {
+      this.$refs.username.init(this.form.email);
+      this.$refs.password.init(this.form.password);
     },
     // 登录
     login() {

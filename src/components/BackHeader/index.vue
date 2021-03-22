@@ -31,7 +31,7 @@ export default {
 <style lang="scss" scoped>
 .back-header-wrap {
   position: relative;
-  padding-bottom: 147px;
+  padding-bottom: 100px;
 }
 
 .nav-header {
