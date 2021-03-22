@@ -37,10 +37,28 @@
 .color-white {
   color: white;
 }
+.color-success,
+.color-OVER {
+  color: #10da06;
+}
+.color-fail {
+  color: #bd1b00;
+}
+.color-WAIT {
+  color: yellow;
+}
+.color-CANCEL {
+  color: #8c8c8c;
+}
 
 /* opacity */
 .opacity-4 {
   opacity: 0.4;
+}
+
+/* line-height */
+.lh-40 {
+  line-height: 40px;
 }
 
 /* margin */
@@ -49,6 +67,18 @@
 }
 .margin-bottom-20 {
   margin-bottom: 20px;
+}
+
+.margin-bt-50 {
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+/* icon */
+.icon-success {
+  background-image: url(~@/assets/images/success.png);
+}
+.icon-fail {
+  background-image: url(~@/assets/images/fail.png);
 }
 
 i[class^="icon"] {
@@ -95,6 +125,7 @@ i[class^="icon"] {
 .button-block {
   display: block;
   margin: 20px auto;
+  width: 100%;
 }
 
 .cars-form-ui {

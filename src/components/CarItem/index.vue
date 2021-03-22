@@ -241,7 +241,9 @@ export default {
                 if (router) {
                   this.$router.push({
                     name: router,
-                    type: this.messageList[this.backupKey].type
+                    query: {
+                      type: this.messageList[this.backupKey].type
+                    }
                   });
                 }
               })
