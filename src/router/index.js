@@ -119,6 +119,15 @@ const routes = [
           title: "订单详情"
         },
         component: () => import("../views/Order/detailed")
+      },
+      // 充值
+      {
+        path: "/recharge",
+        name: "Recharge",
+        meta: {
+          title: "充值"
+        },
+        component: () => import("../views/Recharge/index")
       }
     ]
   }

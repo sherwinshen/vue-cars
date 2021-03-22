@@ -102,7 +102,12 @@
         </main>
       </section>
       <footer>
-        <a href="javascript: void(0);" class="car-select-btn">预约用车</a>
+        <a
+          href="javascript: void(0);"
+          class="car-select-btn"
+          @click="confirmCars"
+          >预约用车</a
+        >
       </footer>
     </div>
   </div>
@@ -110,7 +115,7 @@
 
 <script>
 import { getCarsAttrKey } from "@/utils/format";
-import { GetLeaseList } from "@/api/cars";
+import { GetLeaseList, ConfirmCars } from "@/api/cars";
 
 export default {
   name: "CarItem",
@@ -150,7 +155,13 @@ export default {
       cars_info_height: 0,
       timer: null,
       leaseListData: [], // 租赁类型列表
-      leaseId: "" // 租赁ID
+      leaseId: "", // 租赁ID
+      token: this.$store.state.login.accountToken,
+      messageList: this.$store.state.config.messageList,
+      // 临时使用
+      backupKey: "",
+      // 用户审核
+      arr: ["check_real_name", "check_cars", "gilding", "illegalAmount"]
     };
   },
   methods: {
@@ -189,6 +200,60 @@ export default {
     // 选择租赁类
     selectLeaseType(data) {
       this.leaseId = data.carsLeaseTypeId;
+    },
+    // 预约用车
+    confirmCars() {
+      // 判断是否登陆
+      if (this.token) {
+        this.$router.push({
+          name: "Login"
+        });
+      }
+      // 判断是否选择租车类型
+      if (!this.leaseId) {
+        this.$message({
+          message: "请选择租车类型",
+          type: "warning"
+        });
+        return false;
+      }
+      // 判断余额、认证等信息
+      ConfirmCars({
+        cars_id: this.data.id,
+        cars_lease_type_id: this.leaseId
+      }).then(response => {
+        const data = response.data.data;
+        const key = Object.keys(data);
+        if (key && key.length > 0) {
+          this.backupKey = key[0]; // 临时存储
+          if (this.arr.includes(key[0])) {
+            let message = "";
+            let msg = this.messageList[key[0]].msg;
+            msg && (message = msg);
+            // 弹窗提示
+            this.$confirm(message, "提示", {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning"
+            })
+              .then(() => {
+                let router = this.messageList[this.backupKey].router;
+                if (router) {
+                  this.$router.push({
+                    name: router,
+                    type: this.messageList[this.backupKey].type
+                  });
+                }
+              })
+              .catch(() => {});
+          } else {
+            this.$message({
+              message: this.messageList[this.backupKey].msg,
+              type: "error"
+            });
+          }
+        }
+      });
     }
   }
 };

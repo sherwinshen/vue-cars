@@ -1,7 +1,7 @@
 // ------------ 请求拦截器 ------------
 import axios from "axios";
 import { Message } from "element-ui"; // 前面element-ui是在vue中全局引入，我们js文件这边需要重新引入才能使用
-import { getAdminToken, getAdminName } from "@/utils/cookies";
+import { getAdminToken, getAdminName, getAccountToken } from "@/utils/cookies";
 
 // 创建axios，赋给变量service - 基本配置
 // const BASEURL = process.env.NODE_ENV === "production" ? "" : "/api";
@@ -16,8 +16,9 @@ const service = axios.create({
 service.interceptors.request.use(
   function(config) {
     // 在发送请求之前添加token等头信息
-    config.headers["Token"] = getAdminToken(); // 携带token
-    config.headers["Username"] = getAdminName(); // 携带token
+    config.headers["Token"] = getAdminToken(); // 携带token（这个是后台，实际不需要）
+    config.headers["Username"] = getAdminName();
+    config.headers["Tokencars"] = getAccountToken(); // 携带用户token
     return config;
   },
   function(error) {
