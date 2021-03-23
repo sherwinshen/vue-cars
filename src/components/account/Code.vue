@@ -32,7 +32,7 @@
 
 <script>
 import { codeRule, emailRule } from "@/utils/validate";
-import { GetCode } from "@/api/login";
+import { GetCode } from "@/api/account";
 
 export default {
   name: "Code",

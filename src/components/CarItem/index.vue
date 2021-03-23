@@ -204,7 +204,7 @@ export default {
     // 预约用车
     confirmCars() {
       // 判断是否登陆
-      if (this.token) {
+      if (!this.token) {
         this.$router.push({
           name: "Login"
         });
@@ -249,10 +249,9 @@ export default {
               })
               .catch(() => {});
           } else {
-            this.$message({
-              message: this.messageList[this.backupKey].msg,
-              type: "error"
-            });
+            // 警告信息(已在响应拦截器中显示信息了）
+            // 1. 汽车已被他人预约（一半出现在两人同时点击时）
+            // 2. 自身已经预约车辆
           }
         }
       });
