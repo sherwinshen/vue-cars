@@ -8,13 +8,14 @@ import {
   setAccountToken,
   setAccountName,
   removeAccountName,
-  removeAccountToken
+  removeAccountToken,
+  getAccountToken
 } from "@/utils/cookies";
 
 const state = {
   toKen: "",
   username: getAdminName() || "",
-  accountToken: "",
+  accountToken: getAccountToken || "",
   accountName: getAccountName() || ""
 };
 const mutations = {

@@ -4,7 +4,9 @@ const state = {
   // 是否是请求车辆列表
   isRequestCarsList: false,
   // 路由title
-  routerName: ""
+  routerName: "",
+  // 首页是否刷新
+  isReset: false
 };
 const mutations = {
   SET_CARS_LIST_STATUS(state, value) {
@@ -15,6 +17,9 @@ const mutations = {
   },
   SET_ROUTER_NAME(state, value) {
     state.routerName = value;
+  },
+  SET_INDEX_RESET(state, value) {
+    state.isReset = value;
   }
 };
 const actions = {};

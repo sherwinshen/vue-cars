@@ -222,6 +222,14 @@ export default {
         cars_id: this.data.id,
         cars_lease_type_id: this.leaseId
       }).then(response => {
+        // 预约成功
+        if (!response.data.data && response.data.resCode === 0) {
+          this.$store.commit("app/SET_CARS_LIST_STATUS", false);
+          this.$store.commit("app/SET_INDEX_RESET", true);
+          return true;
+        }
+
+        // 其他情况
         const data = response.data.data;
         const key = Object.keys(data);
         if (key && key.length > 0) {

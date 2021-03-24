@@ -6,6 +6,43 @@
     <Car ref="car" @callback="callback" />
     <Navbar></Navbar>
     <Map ref="map" @callback="callback" />
+    <div class="operation-group">
+      <el-button
+        type="success"
+        size="small"
+        class="cars_activation"
+        v-if="cars_active_data && cars_active_data.order_no"
+        @click="goToCur()"
+      >
+        进行中的订单
+      </el-button>
+      <div
+        class="button-group"
+        v-if="cars_active_data && cars_active_data.order_no"
+      >
+        <el-button
+          type="primary"
+          size="small"
+          @click="carsGet"
+          v-if="cars_active_data.order_status === 'WAIT'"
+          >取车</el-button
+        >
+        <el-button
+          type="primary"
+          size="small"
+          @click="carsReturn"
+          v-if="cars_active_data.order_status === 'RETURN'"
+          >还车</el-button
+        >
+        <el-button
+          type="primary"
+          size="small"
+          @click="carsCancel"
+          v-if="cars_active_data.order_status === 'WAIT'"
+          >取消</el-button
+        >
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,6 +54,12 @@ import sha1 from "js-sha1";
 
 import { Parking } from "@/api/parking";
 import { GetCode } from "@/api/login";
+import {
+  GetCarsActivation,
+  CarsGet,
+  CarsCancel,
+  CarsReturn
+} from "@/api/order";
 
 export default {
   name: "Index",
@@ -25,10 +68,29 @@ export default {
     Map,
     Navbar
   },
+  data() {
+    return {
+      cars_active_data: JSON.parse(localStorage.getItem("cars_active")),
+      order_no: ""
+    };
+  },
   computed: {
     show() {
       return this.$route.name !== "Index";
     }
+  },
+  watch: {
+    "$store.state.app.isReset": {
+      handler(newValue) {
+        if (!newValue) {
+          !this.order_no && this.getCarsActivation();
+        }
+        this.$store.commit("app/SET_INDEX_RESET", false);
+      }
+    }
+  },
+  beforeMount() {
+    !this.order_no && this.getCarsActivation();
   },
   mounted() {
     // 登陆后台管理账户（为了对应后台管理系统的数据，实际应用中不需要）
@@ -102,6 +164,67 @@ export default {
     getCarsList(e) {
       const data = e.target.getExtData();
       this.$refs.car && this.$refs.car.getCarsList(data.id);
+    },
+    // 获取正在进行中的订单
+    getCarsActivation() {
+      GetCarsActivation().then(response => {
+        const data = response.data.data;
+        if (data) {
+          this.cars_active_data = data;
+          localStorage.setItem("cars_active", JSON.stringify(data));
+        }
+      });
+    },
+    // 跳转正在进行中订单详情
+    goToCur() {
+      this.$router.push({
+        path: "/orderDetailed",
+        query: { order_no: this.cars_active_data.order_no }
+      });
+    },
+    // 取车
+    carsGet() {
+      CarsGet({
+        order_no: this.cars_active_data.order_no,
+        cars_id: this.cars_active_data.cars_id
+      }).then(response => {
+        const data = response.data.data;
+        if (data && data.order_status) {
+          this.$set(this.cars_active_data, "order_status", data.order_status);
+          localStorage.setItem(
+            "cars_active",
+            JSON.stringify(this.cars_active_data)
+          );
+        }
+      });
+    },
+    // 还车
+    carsReturn() {
+      CarsReturn({
+        order_no: this.cars_active_data.order_no,
+        cars_id: this.cars_active_data.cars_id
+      }).then(response => {
+        this.$message({
+          message: response.data.message,
+          type: "success"
+        });
+        this.cars_active_data = null;
+        localStorage.removeItem("cars_active");
+      });
+    },
+    // 取消
+    carsCancel() {
+      CarsCancel({
+        order_no: this.cars_active_data.order_no,
+        cars_id: this.cars_active_data.cars_id
+      }).then(response => {
+        this.$message({
+          message: response.data.message,
+          type: "success"
+        });
+        this.cars_active_data = null;
+        localStorage.removeItem("cars_active");
+      });
     }
   }
 };
@@ -138,5 +261,16 @@ export default {
       right: 0;
     }
   }
+}
+.cars_activation {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  padding: 10px 20px;
+}
+.button-group {
+  position: fixed;
+  left: 20px;
+  top: 80px;
 }
 </style>
